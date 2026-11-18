@@ -1,0 +1,22 @@
+{
+  "propagation_ms": 10,
+  "phase_ms": 90000,
+  "bridges": {
+    "s1": {"priority": 32768, "mac": "02:00:00:00:00:01"},
+    "s2": {"priority": 32768, "mac": "02:00:00:00:00:02"},
+    "s3": {"priority": 32768, "mac": "02:00:00:00:00:03"}
+  },
+  "links": [
+    ["s1-s2", "s1", 1, "s2", 1, 19],
+    ["s1-s3", "s1", 2, "s3", 1, 19],
+    ["s2-s3", "s2", 2, "s3", 2, 19]
+  ],
+  "experiments": [
+    {"name": "normal", "expect_root": "s1", "expect_counts": [5, 1, 0]},
+    {"name": "priority_change", "priority": ["s3", 4096], "expect_root": "s3", "expect_counts": [5, 1, 0]},
+    {"name": "link_failure", "fail_link": "s1-s3", "expect_root": "s1", "expect_counts": [4, 0, 2]},
+    {"name": "blocked_link_failure", "fail_link": "s2-s3", "expect_root": "s1", "expect_counts": [4, 0, 2]},
+    {"name": "higher_path_cost", "path_costs": {"s1-s3": 100}, "expect_root": "s1", "expect_counts": [5, 1, 0]},
+    {"name": "short_forward_delay", "timers": {"forward_delay": 12000}, "expect_root": "s1", "expect_counts": [5, 1, 0]}
+  ]
+}

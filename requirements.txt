@@ -1,0 +1,2 @@
+pytest==8.4.2
+CairoSVG==2.8.2

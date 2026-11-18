@@ -1,0 +1,1880 @@
+[
+  {
+    "experiment": "normal",
+    "phase": "startup",
+    "root_id": "32768/02:00:00:00:00:01",
+    "trigger_ms": 0,
+    "observed_until_ms": 90000,
+    "baseline_convergence_ms": null,
+    "control_convergence_ms": 20,
+    "port_state_convergence_ms": 30000,
+    "convergence_ms": 30000,
+    "timers_ms": {
+      "hello": 2000,
+      "max_age": 20000,
+      "forward_delay": 15000
+    },
+    "propagation_ms": 10,
+    "path_costs": {
+      "s1-s2": 19,
+      "s1-s3": 19,
+      "s2-s3": 19
+    },
+    "timeline": [
+      {
+        "time_ms": 0,
+        "kind": "port_role",
+        "bridge": "s1",
+        "port": 1,
+        "previous": "disabled",
+        "role": "designated"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_state",
+        "bridge": "s1",
+        "port": 1,
+        "previous": "disabled",
+        "state": "listening"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_role",
+        "bridge": "s1",
+        "port": 2,
+        "previous": "disabled",
+        "role": "designated"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_state",
+        "bridge": "s1",
+        "port": 2,
+        "previous": "disabled",
+        "state": "listening"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_role",
+        "bridge": "s2",
+        "port": 1,
+        "previous": "disabled",
+        "role": "designated"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_state",
+        "bridge": "s2",
+        "port": 1,
+        "previous": "disabled",
+        "state": "listening"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_role",
+        "bridge": "s2",
+        "port": 2,
+        "previous": "disabled",
+        "role": "designated"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_state",
+        "bridge": "s2",
+        "port": 2,
+        "previous": "disabled",
+        "state": "listening"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_role",
+        "bridge": "s3",
+        "port": 1,
+        "previous": "disabled",
+        "role": "designated"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_state",
+        "bridge": "s3",
+        "port": 1,
+        "previous": "disabled",
+        "state": "listening"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_role",
+        "bridge": "s3",
+        "port": 2,
+        "previous": "disabled",
+        "role": "designated"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_state",
+        "bridge": "s3",
+        "port": 2,
+        "previous": "disabled",
+        "state": "listening"
+      },
+      {
+        "time_ms": 10,
+        "kind": "root_selection",
+        "bridge": "s2",
+        "root_id": "32768/02:00:00:00:00:01",
+        "root_cost": 19,
+        "root_port": 1
+      },
+      {
+        "time_ms": 10,
+        "kind": "port_role",
+        "bridge": "s2",
+        "port": 1,
+        "previous": "designated",
+        "role": "root"
+      },
+      {
+        "time_ms": 10,
+        "kind": "root_selection",
+        "bridge": "s3",
+        "root_id": "32768/02:00:00:00:00:01",
+        "root_cost": 19,
+        "root_port": 1
+      },
+      {
+        "time_ms": 10,
+        "kind": "port_role",
+        "bridge": "s3",
+        "port": 1,
+        "previous": "designated",
+        "role": "root"
+      },
+      {
+        "time_ms": 20,
+        "kind": "port_role",
+        "bridge": "s3",
+        "port": 2,
+        "previous": "designated",
+        "role": "alternate"
+      },
+      {
+        "time_ms": 20,
+        "kind": "port_state",
+        "bridge": "s3",
+        "port": 2,
+        "previous": "listening",
+        "state": "blocking"
+      },
+      {
+        "time_ms": 15000,
+        "kind": "port_state",
+        "bridge": "s1",
+        "port": 1,
+        "previous": "listening",
+        "state": "learning"
+      },
+      {
+        "time_ms": 15000,
+        "kind": "port_state",
+        "bridge": "s1",
+        "port": 2,
+        "previous": "listening",
+        "state": "learning"
+      },
+      {
+        "time_ms": 15000,
+        "kind": "port_state",
+        "bridge": "s2",
+        "port": 1,
+        "previous": "listening",
+        "state": "learning"
+      },
+      {
+        "time_ms": 15000,
+        "kind": "port_state",
+        "bridge": "s2",
+        "port": 2,
+        "previous": "listening",
+        "state": "learning"
+      },
+      {
+        "time_ms": 15000,
+        "kind": "port_state",
+        "bridge": "s3",
+        "port": 1,
+        "previous": "listening",
+        "state": "learning"
+      },
+      {
+        "time_ms": 30000,
+        "kind": "port_state",
+        "bridge": "s1",
+        "port": 1,
+        "previous": "learning",
+        "state": "forwarding"
+      },
+      {
+        "time_ms": 30000,
+        "kind": "port_state",
+        "bridge": "s1",
+        "port": 2,
+        "previous": "learning",
+        "state": "forwarding"
+      },
+      {
+        "time_ms": 30000,
+        "kind": "port_state",
+        "bridge": "s2",
+        "port": 1,
+        "previous": "learning",
+        "state": "forwarding"
+      },
+      {
+        "time_ms": 30000,
+        "kind": "port_state",
+        "bridge": "s2",
+        "port": 2,
+        "previous": "learning",
+        "state": "forwarding"
+      },
+      {
+        "time_ms": 30000,
+        "kind": "port_state",
+        "bridge": "s3",
+        "port": 1,
+        "previous": "learning",
+        "state": "forwarding"
+      }
+    ],
+    "before": null,
+    "bridges": {
+      "s1": {
+        "bridge_id": "32768/02:00:00:00:00:01",
+        "root_id": "32768/02:00:00:00:00:01",
+        "root_cost": 0,
+        "root_port": null
+      },
+      "s2": {
+        "bridge_id": "32768/02:00:00:00:00:02",
+        "root_id": "32768/02:00:00:00:00:01",
+        "root_cost": 19,
+        "root_port": 1
+      },
+      "s3": {
+        "bridge_id": "32768/02:00:00:00:00:03",
+        "root_id": "32768/02:00:00:00:00:01",
+        "root_cost": 19,
+        "root_port": 1
+      }
+    },
+    "ports": [
+      {
+        "bridge": "s1",
+        "port": 1,
+        "peer": "s2",
+        "peer_port": 1,
+        "role": "designated",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s1",
+        "port": 2,
+        "peer": "s3",
+        "peer_port": 1,
+        "role": "designated",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s2",
+        "port": 1,
+        "peer": "s1",
+        "peer_port": 1,
+        "role": "root",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s2",
+        "port": 2,
+        "peer": "s3",
+        "peer_port": 2,
+        "role": "designated",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s3",
+        "port": 1,
+        "peer": "s1",
+        "peer_port": 2,
+        "role": "root",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s3",
+        "port": 2,
+        "peer": "s2",
+        "peer_port": 2,
+        "role": "alternate",
+        "state": "blocking"
+      }
+    ],
+    "state_counts": {
+      "forwarding": 5,
+      "blocking": 1,
+      "disabled": 0,
+      "listening": 0,
+      "learning": 0
+    },
+    "forwarding_links": [
+      "s1-s2",
+      "s1-s3"
+    ],
+    "components": [
+      [
+        "s1",
+        "s2",
+        "s3"
+      ]
+    ],
+    "connected": true,
+    "loop_free": true
+  },
+  {
+    "experiment": "priority_change",
+    "phase": "reconvergence",
+    "root_id": "4096/02:00:00:00:00:03",
+    "trigger_ms": 90000,
+    "observed_until_ms": 180000,
+    "baseline_convergence_ms": 30000,
+    "control_convergence_ms": 20,
+    "port_state_convergence_ms": 30000,
+    "convergence_ms": 30000,
+    "timers_ms": {
+      "hello": 2000,
+      "max_age": 20000,
+      "forward_delay": 15000
+    },
+    "propagation_ms": 10,
+    "path_costs": {
+      "s1-s2": 19,
+      "s1-s3": 19,
+      "s2-s3": 19
+    },
+    "timeline": [
+      {
+        "time_ms": 90000,
+        "kind": "bridge_id",
+        "bridge": "s3",
+        "previous": "32768/02:00:00:00:00:03",
+        "bridge_id": "4096/02:00:00:00:00:03"
+      },
+      {
+        "time_ms": 90000,
+        "kind": "root_selection",
+        "bridge": "s3",
+        "root_id": "4096/02:00:00:00:00:03",
+        "root_cost": 0,
+        "root_port": null
+      },
+      {
+        "time_ms": 90000,
+        "kind": "port_role",
+        "bridge": "s3",
+        "port": 1,
+        "previous": "root",
+        "role": "designated"
+      },
+      {
+        "time_ms": 90000,
+        "kind": "port_role",
+        "bridge": "s3",
+        "port": 2,
+        "previous": "alternate",
+        "role": "designated"
+      },
+      {
+        "time_ms": 90000,
+        "kind": "port_state",
+        "bridge": "s3",
+        "port": 2,
+        "previous": "blocking",
+        "state": "listening"
+      },
+      {
+        "time_ms": 90010,
+        "kind": "root_selection",
+        "bridge": "s1",
+        "root_id": "4096/02:00:00:00:00:03",
+        "root_cost": 19,
+        "root_port": 2
+      },
+      {
+        "time_ms": 90010,
+        "kind": "port_role",
+        "bridge": "s1",
+        "port": 2,
+        "previous": "designated",
+        "role": "root"
+      },
+      {
+        "time_ms": 90010,
+        "kind": "root_selection",
+        "bridge": "s2",
+        "root_id": "4096/02:00:00:00:00:03",
+        "root_cost": 19,
+        "root_port": 2
+      },
+      {
+        "time_ms": 90010,
+        "kind": "port_role",
+        "bridge": "s2",
+        "port": 1,
+        "previous": "root",
+        "role": "designated"
+      },
+      {
+        "time_ms": 90010,
+        "kind": "port_role",
+        "bridge": "s2",
+        "port": 2,
+        "previous": "designated",
+        "role": "root"
+      },
+      {
+        "time_ms": 90020,
+        "kind": "port_role",
+        "bridge": "s2",
+        "port": 1,
+        "previous": "designated",
+        "role": "alternate"
+      },
+      {
+        "time_ms": 90020,
+        "kind": "port_state",
+        "bridge": "s2",
+        "port": 1,
+        "previous": "forwarding",
+        "state": "blocking"
+      },
+      {
+        "time_ms": 105000,
+        "kind": "port_state",
+        "bridge": "s3",
+        "port": 2,
+        "previous": "listening",
+        "state": "learning"
+      },
+      {
+        "time_ms": 120000,
+        "kind": "port_state",
+        "bridge": "s3",
+        "port": 2,
+        "previous": "learning",
+        "state": "forwarding"
+      }
+    ],
+    "before": {
+      "bridges": {
+        "s1": {
+          "bridge_id": "32768/02:00:00:00:00:01",
+          "root_id": "32768/02:00:00:00:00:01",
+          "root_cost": 0,
+          "root_port": null
+        },
+        "s2": {
+          "bridge_id": "32768/02:00:00:00:00:02",
+          "root_id": "32768/02:00:00:00:00:01",
+          "root_cost": 19,
+          "root_port": 1
+        },
+        "s3": {
+          "bridge_id": "32768/02:00:00:00:00:03",
+          "root_id": "32768/02:00:00:00:00:01",
+          "root_cost": 19,
+          "root_port": 1
+        }
+      },
+      "ports": [
+        {
+          "bridge": "s1",
+          "port": 1,
+          "peer": "s2",
+          "peer_port": 1,
+          "role": "designated",
+          "state": "forwarding"
+        },
+        {
+          "bridge": "s1",
+          "port": 2,
+          "peer": "s3",
+          "peer_port": 1,
+          "role": "designated",
+          "state": "forwarding"
+        },
+        {
+          "bridge": "s2",
+          "port": 1,
+          "peer": "s1",
+          "peer_port": 1,
+          "role": "root",
+          "state": "forwarding"
+        },
+        {
+          "bridge": "s2",
+          "port": 2,
+          "peer": "s3",
+          "peer_port": 2,
+          "role": "designated",
+          "state": "forwarding"
+        },
+        {
+          "bridge": "s3",
+          "port": 1,
+          "peer": "s1",
+          "peer_port": 2,
+          "role": "root",
+          "state": "forwarding"
+        },
+        {
+          "bridge": "s3",
+          "port": 2,
+          "peer": "s2",
+          "peer_port": 2,
+          "role": "alternate",
+          "state": "blocking"
+        }
+      ],
+      "state_counts": {
+        "forwarding": 5,
+        "blocking": 1,
+        "disabled": 0,
+        "listening": 0,
+        "learning": 0
+      },
+      "forwarding_links": [
+        "s1-s2",
+        "s1-s3"
+      ],
+      "components": [
+        [
+          "s1",
+          "s2",
+          "s3"
+        ]
+      ],
+      "connected": true,
+      "loop_free": true
+    },
+    "bridges": {
+      "s1": {
+        "bridge_id": "32768/02:00:00:00:00:01",
+        "root_id": "4096/02:00:00:00:00:03",
+        "root_cost": 19,
+        "root_port": 2
+      },
+      "s2": {
+        "bridge_id": "32768/02:00:00:00:00:02",
+        "root_id": "4096/02:00:00:00:00:03",
+        "root_cost": 19,
+        "root_port": 2
+      },
+      "s3": {
+        "bridge_id": "4096/02:00:00:00:00:03",
+        "root_id": "4096/02:00:00:00:00:03",
+        "root_cost": 0,
+        "root_port": null
+      }
+    },
+    "ports": [
+      {
+        "bridge": "s1",
+        "port": 1,
+        "peer": "s2",
+        "peer_port": 1,
+        "role": "designated",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s1",
+        "port": 2,
+        "peer": "s3",
+        "peer_port": 1,
+        "role": "root",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s2",
+        "port": 1,
+        "peer": "s1",
+        "peer_port": 1,
+        "role": "alternate",
+        "state": "blocking"
+      },
+      {
+        "bridge": "s2",
+        "port": 2,
+        "peer": "s3",
+        "peer_port": 2,
+        "role": "root",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s3",
+        "port": 1,
+        "peer": "s1",
+        "peer_port": 2,
+        "role": "designated",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s3",
+        "port": 2,
+        "peer": "s2",
+        "peer_port": 2,
+        "role": "designated",
+        "state": "forwarding"
+      }
+    ],
+    "state_counts": {
+      "forwarding": 5,
+      "blocking": 1,
+      "disabled": 0,
+      "listening": 0,
+      "learning": 0
+    },
+    "forwarding_links": [
+      "s1-s3",
+      "s2-s3"
+    ],
+    "components": [
+      [
+        "s1",
+        "s2",
+        "s3"
+      ]
+    ],
+    "connected": true,
+    "loop_free": true
+  },
+  {
+    "experiment": "link_failure",
+    "phase": "reconvergence",
+    "root_id": "32768/02:00:00:00:00:01",
+    "trigger_ms": 90000,
+    "observed_until_ms": 180000,
+    "baseline_convergence_ms": 30000,
+    "control_convergence_ms": 0,
+    "port_state_convergence_ms": 30000,
+    "convergence_ms": 30000,
+    "timers_ms": {
+      "hello": 2000,
+      "max_age": 20000,
+      "forward_delay": 15000
+    },
+    "propagation_ms": 10,
+    "path_costs": {
+      "s1-s2": 19,
+      "s1-s3": 19,
+      "s2-s3": 19
+    },
+    "timeline": [
+      {
+        "time_ms": 90000,
+        "kind": "link",
+        "link": "s1-s3",
+        "up": false
+      },
+      {
+        "time_ms": 90000,
+        "kind": "port_role",
+        "bridge": "s1",
+        "port": 2,
+        "previous": "designated",
+        "role": "disabled"
+      },
+      {
+        "time_ms": 90000,
+        "kind": "port_state",
+        "bridge": "s1",
+        "port": 2,
+        "previous": "forwarding",
+        "state": "disabled"
+      },
+      {
+        "time_ms": 90000,
+        "kind": "root_selection",
+        "bridge": "s3",
+        "root_id": "32768/02:00:00:00:00:01",
+        "root_cost": 38,
+        "root_port": 2
+      },
+      {
+        "time_ms": 90000,
+        "kind": "port_role",
+        "bridge": "s3",
+        "port": 1,
+        "previous": "root",
+        "role": "disabled"
+      },
+      {
+        "time_ms": 90000,
+        "kind": "port_state",
+        "bridge": "s3",
+        "port": 1,
+        "previous": "forwarding",
+        "state": "disabled"
+      },
+      {
+        "time_ms": 90000,
+        "kind": "port_role",
+        "bridge": "s3",
+        "port": 2,
+        "previous": "alternate",
+        "role": "root"
+      },
+      {
+        "time_ms": 90000,
+        "kind": "port_state",
+        "bridge": "s3",
+        "port": 2,
+        "previous": "blocking",
+        "state": "listening"
+      },
+      {
+        "time_ms": 105000,
+        "kind": "port_state",
+        "bridge": "s3",
+        "port": 2,
+        "previous": "listening",
+        "state": "learning"
+      },
+      {
+        "time_ms": 120000,
+        "kind": "port_state",
+        "bridge": "s3",
+        "port": 2,
+        "previous": "learning",
+        "state": "forwarding"
+      }
+    ],
+    "before": {
+      "bridges": {
+        "s1": {
+          "bridge_id": "32768/02:00:00:00:00:01",
+          "root_id": "32768/02:00:00:00:00:01",
+          "root_cost": 0,
+          "root_port": null
+        },
+        "s2": {
+          "bridge_id": "32768/02:00:00:00:00:02",
+          "root_id": "32768/02:00:00:00:00:01",
+          "root_cost": 19,
+          "root_port": 1
+        },
+        "s3": {
+          "bridge_id": "32768/02:00:00:00:00:03",
+          "root_id": "32768/02:00:00:00:00:01",
+          "root_cost": 19,
+          "root_port": 1
+        }
+      },
+      "ports": [
+        {
+          "bridge": "s1",
+          "port": 1,
+          "peer": "s2",
+          "peer_port": 1,
+          "role": "designated",
+          "state": "forwarding"
+        },
+        {
+          "bridge": "s1",
+          "port": 2,
+          "peer": "s3",
+          "peer_port": 1,
+          "role": "designated",
+          "state": "forwarding"
+        },
+        {
+          "bridge": "s2",
+          "port": 1,
+          "peer": "s1",
+          "peer_port": 1,
+          "role": "root",
+          "state": "forwarding"
+        },
+        {
+          "bridge": "s2",
+          "port": 2,
+          "peer": "s3",
+          "peer_port": 2,
+          "role": "designated",
+          "state": "forwarding"
+        },
+        {
+          "bridge": "s3",
+          "port": 1,
+          "peer": "s1",
+          "peer_port": 2,
+          "role": "root",
+          "state": "forwarding"
+        },
+        {
+          "bridge": "s3",
+          "port": 2,
+          "peer": "s2",
+          "peer_port": 2,
+          "role": "alternate",
+          "state": "blocking"
+        }
+      ],
+      "state_counts": {
+        "forwarding": 5,
+        "blocking": 1,
+        "disabled": 0,
+        "listening": 0,
+        "learning": 0
+      },
+      "forwarding_links": [
+        "s1-s2",
+        "s1-s3"
+      ],
+      "components": [
+        [
+          "s1",
+          "s2",
+          "s3"
+        ]
+      ],
+      "connected": true,
+      "loop_free": true
+    },
+    "bridges": {
+      "s1": {
+        "bridge_id": "32768/02:00:00:00:00:01",
+        "root_id": "32768/02:00:00:00:00:01",
+        "root_cost": 0,
+        "root_port": null
+      },
+      "s2": {
+        "bridge_id": "32768/02:00:00:00:00:02",
+        "root_id": "32768/02:00:00:00:00:01",
+        "root_cost": 19,
+        "root_port": 1
+      },
+      "s3": {
+        "bridge_id": "32768/02:00:00:00:00:03",
+        "root_id": "32768/02:00:00:00:00:01",
+        "root_cost": 38,
+        "root_port": 2
+      }
+    },
+    "ports": [
+      {
+        "bridge": "s1",
+        "port": 1,
+        "peer": "s2",
+        "peer_port": 1,
+        "role": "designated",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s1",
+        "port": 2,
+        "peer": "s3",
+        "peer_port": 1,
+        "role": "disabled",
+        "state": "disabled"
+      },
+      {
+        "bridge": "s2",
+        "port": 1,
+        "peer": "s1",
+        "peer_port": 1,
+        "role": "root",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s2",
+        "port": 2,
+        "peer": "s3",
+        "peer_port": 2,
+        "role": "designated",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s3",
+        "port": 1,
+        "peer": "s1",
+        "peer_port": 2,
+        "role": "disabled",
+        "state": "disabled"
+      },
+      {
+        "bridge": "s3",
+        "port": 2,
+        "peer": "s2",
+        "peer_port": 2,
+        "role": "root",
+        "state": "forwarding"
+      }
+    ],
+    "state_counts": {
+      "forwarding": 4,
+      "blocking": 0,
+      "disabled": 2,
+      "listening": 0,
+      "learning": 0
+    },
+    "forwarding_links": [
+      "s1-s2",
+      "s2-s3"
+    ],
+    "components": [
+      [
+        "s1",
+        "s2",
+        "s3"
+      ]
+    ],
+    "connected": true,
+    "loop_free": true
+  },
+  {
+    "experiment": "blocked_link_failure",
+    "phase": "reconvergence",
+    "root_id": "32768/02:00:00:00:00:01",
+    "trigger_ms": 90000,
+    "observed_until_ms": 180000,
+    "baseline_convergence_ms": 30000,
+    "control_convergence_ms": 0,
+    "port_state_convergence_ms": 0,
+    "convergence_ms": 0,
+    "timers_ms": {
+      "hello": 2000,
+      "max_age": 20000,
+      "forward_delay": 15000
+    },
+    "propagation_ms": 10,
+    "path_costs": {
+      "s1-s2": 19,
+      "s1-s3": 19,
+      "s2-s3": 19
+    },
+    "timeline": [
+      {
+        "time_ms": 90000,
+        "kind": "link",
+        "link": "s2-s3",
+        "up": false
+      },
+      {
+        "time_ms": 90000,
+        "kind": "port_role",
+        "bridge": "s2",
+        "port": 2,
+        "previous": "designated",
+        "role": "disabled"
+      },
+      {
+        "time_ms": 90000,
+        "kind": "port_state",
+        "bridge": "s2",
+        "port": 2,
+        "previous": "forwarding",
+        "state": "disabled"
+      },
+      {
+        "time_ms": 90000,
+        "kind": "port_role",
+        "bridge": "s3",
+        "port": 2,
+        "previous": "alternate",
+        "role": "disabled"
+      },
+      {
+        "time_ms": 90000,
+        "kind": "port_state",
+        "bridge": "s3",
+        "port": 2,
+        "previous": "blocking",
+        "state": "disabled"
+      }
+    ],
+    "before": {
+      "bridges": {
+        "s1": {
+          "bridge_id": "32768/02:00:00:00:00:01",
+          "root_id": "32768/02:00:00:00:00:01",
+          "root_cost": 0,
+          "root_port": null
+        },
+        "s2": {
+          "bridge_id": "32768/02:00:00:00:00:02",
+          "root_id": "32768/02:00:00:00:00:01",
+          "root_cost": 19,
+          "root_port": 1
+        },
+        "s3": {
+          "bridge_id": "32768/02:00:00:00:00:03",
+          "root_id": "32768/02:00:00:00:00:01",
+          "root_cost": 19,
+          "root_port": 1
+        }
+      },
+      "ports": [
+        {
+          "bridge": "s1",
+          "port": 1,
+          "peer": "s2",
+          "peer_port": 1,
+          "role": "designated",
+          "state": "forwarding"
+        },
+        {
+          "bridge": "s1",
+          "port": 2,
+          "peer": "s3",
+          "peer_port": 1,
+          "role": "designated",
+          "state": "forwarding"
+        },
+        {
+          "bridge": "s2",
+          "port": 1,
+          "peer": "s1",
+          "peer_port": 1,
+          "role": "root",
+          "state": "forwarding"
+        },
+        {
+          "bridge": "s2",
+          "port": 2,
+          "peer": "s3",
+          "peer_port": 2,
+          "role": "designated",
+          "state": "forwarding"
+        },
+        {
+          "bridge": "s3",
+          "port": 1,
+          "peer": "s1",
+          "peer_port": 2,
+          "role": "root",
+          "state": "forwarding"
+        },
+        {
+          "bridge": "s3",
+          "port": 2,
+          "peer": "s2",
+          "peer_port": 2,
+          "role": "alternate",
+          "state": "blocking"
+        }
+      ],
+      "state_counts": {
+        "forwarding": 5,
+        "blocking": 1,
+        "disabled": 0,
+        "listening": 0,
+        "learning": 0
+      },
+      "forwarding_links": [
+        "s1-s2",
+        "s1-s3"
+      ],
+      "components": [
+        [
+          "s1",
+          "s2",
+          "s3"
+        ]
+      ],
+      "connected": true,
+      "loop_free": true
+    },
+    "bridges": {
+      "s1": {
+        "bridge_id": "32768/02:00:00:00:00:01",
+        "root_id": "32768/02:00:00:00:00:01",
+        "root_cost": 0,
+        "root_port": null
+      },
+      "s2": {
+        "bridge_id": "32768/02:00:00:00:00:02",
+        "root_id": "32768/02:00:00:00:00:01",
+        "root_cost": 19,
+        "root_port": 1
+      },
+      "s3": {
+        "bridge_id": "32768/02:00:00:00:00:03",
+        "root_id": "32768/02:00:00:00:00:01",
+        "root_cost": 19,
+        "root_port": 1
+      }
+    },
+    "ports": [
+      {
+        "bridge": "s1",
+        "port": 1,
+        "peer": "s2",
+        "peer_port": 1,
+        "role": "designated",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s1",
+        "port": 2,
+        "peer": "s3",
+        "peer_port": 1,
+        "role": "designated",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s2",
+        "port": 1,
+        "peer": "s1",
+        "peer_port": 1,
+        "role": "root",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s2",
+        "port": 2,
+        "peer": "s3",
+        "peer_port": 2,
+        "role": "disabled",
+        "state": "disabled"
+      },
+      {
+        "bridge": "s3",
+        "port": 1,
+        "peer": "s1",
+        "peer_port": 2,
+        "role": "root",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s3",
+        "port": 2,
+        "peer": "s2",
+        "peer_port": 2,
+        "role": "disabled",
+        "state": "disabled"
+      }
+    ],
+    "state_counts": {
+      "forwarding": 4,
+      "blocking": 0,
+      "disabled": 2,
+      "listening": 0,
+      "learning": 0
+    },
+    "forwarding_links": [
+      "s1-s2",
+      "s1-s3"
+    ],
+    "components": [
+      [
+        "s1",
+        "s2",
+        "s3"
+      ]
+    ],
+    "connected": true,
+    "loop_free": true
+  },
+  {
+    "experiment": "higher_path_cost",
+    "phase": "startup",
+    "root_id": "32768/02:00:00:00:00:01",
+    "trigger_ms": 0,
+    "observed_until_ms": 90000,
+    "baseline_convergence_ms": null,
+    "control_convergence_ms": 20,
+    "port_state_convergence_ms": 30000,
+    "convergence_ms": 30000,
+    "timers_ms": {
+      "hello": 2000,
+      "max_age": 20000,
+      "forward_delay": 15000
+    },
+    "propagation_ms": 10,
+    "path_costs": {
+      "s1-s2": 19,
+      "s1-s3": 100,
+      "s2-s3": 19
+    },
+    "timeline": [
+      {
+        "time_ms": 0,
+        "kind": "port_role",
+        "bridge": "s1",
+        "port": 1,
+        "previous": "disabled",
+        "role": "designated"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_state",
+        "bridge": "s1",
+        "port": 1,
+        "previous": "disabled",
+        "state": "listening"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_role",
+        "bridge": "s1",
+        "port": 2,
+        "previous": "disabled",
+        "role": "designated"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_state",
+        "bridge": "s1",
+        "port": 2,
+        "previous": "disabled",
+        "state": "listening"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_role",
+        "bridge": "s2",
+        "port": 1,
+        "previous": "disabled",
+        "role": "designated"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_state",
+        "bridge": "s2",
+        "port": 1,
+        "previous": "disabled",
+        "state": "listening"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_role",
+        "bridge": "s2",
+        "port": 2,
+        "previous": "disabled",
+        "role": "designated"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_state",
+        "bridge": "s2",
+        "port": 2,
+        "previous": "disabled",
+        "state": "listening"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_role",
+        "bridge": "s3",
+        "port": 1,
+        "previous": "disabled",
+        "role": "designated"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_state",
+        "bridge": "s3",
+        "port": 1,
+        "previous": "disabled",
+        "state": "listening"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_role",
+        "bridge": "s3",
+        "port": 2,
+        "previous": "disabled",
+        "role": "designated"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_state",
+        "bridge": "s3",
+        "port": 2,
+        "previous": "disabled",
+        "state": "listening"
+      },
+      {
+        "time_ms": 10,
+        "kind": "root_selection",
+        "bridge": "s2",
+        "root_id": "32768/02:00:00:00:00:01",
+        "root_cost": 19,
+        "root_port": 1
+      },
+      {
+        "time_ms": 10,
+        "kind": "port_role",
+        "bridge": "s2",
+        "port": 1,
+        "previous": "designated",
+        "role": "root"
+      },
+      {
+        "time_ms": 10,
+        "kind": "root_selection",
+        "bridge": "s3",
+        "root_id": "32768/02:00:00:00:00:01",
+        "root_cost": 100,
+        "root_port": 1
+      },
+      {
+        "time_ms": 10,
+        "kind": "port_role",
+        "bridge": "s3",
+        "port": 1,
+        "previous": "designated",
+        "role": "root"
+      },
+      {
+        "time_ms": 20,
+        "kind": "root_selection",
+        "bridge": "s3",
+        "root_id": "32768/02:00:00:00:00:01",
+        "root_cost": 38,
+        "root_port": 2
+      },
+      {
+        "time_ms": 20,
+        "kind": "port_role",
+        "bridge": "s3",
+        "port": 1,
+        "previous": "root",
+        "role": "alternate"
+      },
+      {
+        "time_ms": 20,
+        "kind": "port_state",
+        "bridge": "s3",
+        "port": 1,
+        "previous": "listening",
+        "state": "blocking"
+      },
+      {
+        "time_ms": 20,
+        "kind": "port_role",
+        "bridge": "s3",
+        "port": 2,
+        "previous": "designated",
+        "role": "root"
+      },
+      {
+        "time_ms": 15000,
+        "kind": "port_state",
+        "bridge": "s1",
+        "port": 1,
+        "previous": "listening",
+        "state": "learning"
+      },
+      {
+        "time_ms": 15000,
+        "kind": "port_state",
+        "bridge": "s1",
+        "port": 2,
+        "previous": "listening",
+        "state": "learning"
+      },
+      {
+        "time_ms": 15000,
+        "kind": "port_state",
+        "bridge": "s2",
+        "port": 1,
+        "previous": "listening",
+        "state": "learning"
+      },
+      {
+        "time_ms": 15000,
+        "kind": "port_state",
+        "bridge": "s2",
+        "port": 2,
+        "previous": "listening",
+        "state": "learning"
+      },
+      {
+        "time_ms": 15000,
+        "kind": "port_state",
+        "bridge": "s3",
+        "port": 2,
+        "previous": "listening",
+        "state": "learning"
+      },
+      {
+        "time_ms": 30000,
+        "kind": "port_state",
+        "bridge": "s1",
+        "port": 1,
+        "previous": "learning",
+        "state": "forwarding"
+      },
+      {
+        "time_ms": 30000,
+        "kind": "port_state",
+        "bridge": "s1",
+        "port": 2,
+        "previous": "learning",
+        "state": "forwarding"
+      },
+      {
+        "time_ms": 30000,
+        "kind": "port_state",
+        "bridge": "s2",
+        "port": 1,
+        "previous": "learning",
+        "state": "forwarding"
+      },
+      {
+        "time_ms": 30000,
+        "kind": "port_state",
+        "bridge": "s2",
+        "port": 2,
+        "previous": "learning",
+        "state": "forwarding"
+      },
+      {
+        "time_ms": 30000,
+        "kind": "port_state",
+        "bridge": "s3",
+        "port": 2,
+        "previous": "learning",
+        "state": "forwarding"
+      }
+    ],
+    "before": null,
+    "bridges": {
+      "s1": {
+        "bridge_id": "32768/02:00:00:00:00:01",
+        "root_id": "32768/02:00:00:00:00:01",
+        "root_cost": 0,
+        "root_port": null
+      },
+      "s2": {
+        "bridge_id": "32768/02:00:00:00:00:02",
+        "root_id": "32768/02:00:00:00:00:01",
+        "root_cost": 19,
+        "root_port": 1
+      },
+      "s3": {
+        "bridge_id": "32768/02:00:00:00:00:03",
+        "root_id": "32768/02:00:00:00:00:01",
+        "root_cost": 38,
+        "root_port": 2
+      }
+    },
+    "ports": [
+      {
+        "bridge": "s1",
+        "port": 1,
+        "peer": "s2",
+        "peer_port": 1,
+        "role": "designated",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s1",
+        "port": 2,
+        "peer": "s3",
+        "peer_port": 1,
+        "role": "designated",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s2",
+        "port": 1,
+        "peer": "s1",
+        "peer_port": 1,
+        "role": "root",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s2",
+        "port": 2,
+        "peer": "s3",
+        "peer_port": 2,
+        "role": "designated",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s3",
+        "port": 1,
+        "peer": "s1",
+        "peer_port": 2,
+        "role": "alternate",
+        "state": "blocking"
+      },
+      {
+        "bridge": "s3",
+        "port": 2,
+        "peer": "s2",
+        "peer_port": 2,
+        "role": "root",
+        "state": "forwarding"
+      }
+    ],
+    "state_counts": {
+      "forwarding": 5,
+      "blocking": 1,
+      "disabled": 0,
+      "listening": 0,
+      "learning": 0
+    },
+    "forwarding_links": [
+      "s1-s2",
+      "s2-s3"
+    ],
+    "components": [
+      [
+        "s1",
+        "s2",
+        "s3"
+      ]
+    ],
+    "connected": true,
+    "loop_free": true
+  },
+  {
+    "experiment": "short_forward_delay",
+    "phase": "startup",
+    "root_id": "32768/02:00:00:00:00:01",
+    "trigger_ms": 0,
+    "observed_until_ms": 90000,
+    "baseline_convergence_ms": null,
+    "control_convergence_ms": 20,
+    "port_state_convergence_ms": 24000,
+    "convergence_ms": 24000,
+    "timers_ms": {
+      "hello": 2000,
+      "max_age": 20000,
+      "forward_delay": 12000
+    },
+    "propagation_ms": 10,
+    "path_costs": {
+      "s1-s2": 19,
+      "s1-s3": 19,
+      "s2-s3": 19
+    },
+    "timeline": [
+      {
+        "time_ms": 0,
+        "kind": "port_role",
+        "bridge": "s1",
+        "port": 1,
+        "previous": "disabled",
+        "role": "designated"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_state",
+        "bridge": "s1",
+        "port": 1,
+        "previous": "disabled",
+        "state": "listening"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_role",
+        "bridge": "s1",
+        "port": 2,
+        "previous": "disabled",
+        "role": "designated"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_state",
+        "bridge": "s1",
+        "port": 2,
+        "previous": "disabled",
+        "state": "listening"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_role",
+        "bridge": "s2",
+        "port": 1,
+        "previous": "disabled",
+        "role": "designated"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_state",
+        "bridge": "s2",
+        "port": 1,
+        "previous": "disabled",
+        "state": "listening"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_role",
+        "bridge": "s2",
+        "port": 2,
+        "previous": "disabled",
+        "role": "designated"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_state",
+        "bridge": "s2",
+        "port": 2,
+        "previous": "disabled",
+        "state": "listening"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_role",
+        "bridge": "s3",
+        "port": 1,
+        "previous": "disabled",
+        "role": "designated"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_state",
+        "bridge": "s3",
+        "port": 1,
+        "previous": "disabled",
+        "state": "listening"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_role",
+        "bridge": "s3",
+        "port": 2,
+        "previous": "disabled",
+        "role": "designated"
+      },
+      {
+        "time_ms": 0,
+        "kind": "port_state",
+        "bridge": "s3",
+        "port": 2,
+        "previous": "disabled",
+        "state": "listening"
+      },
+      {
+        "time_ms": 10,
+        "kind": "root_selection",
+        "bridge": "s2",
+        "root_id": "32768/02:00:00:00:00:01",
+        "root_cost": 19,
+        "root_port": 1
+      },
+      {
+        "time_ms": 10,
+        "kind": "port_role",
+        "bridge": "s2",
+        "port": 1,
+        "previous": "designated",
+        "role": "root"
+      },
+      {
+        "time_ms": 10,
+        "kind": "root_selection",
+        "bridge": "s3",
+        "root_id": "32768/02:00:00:00:00:01",
+        "root_cost": 19,
+        "root_port": 1
+      },
+      {
+        "time_ms": 10,
+        "kind": "port_role",
+        "bridge": "s3",
+        "port": 1,
+        "previous": "designated",
+        "role": "root"
+      },
+      {
+        "time_ms": 20,
+        "kind": "port_role",
+        "bridge": "s3",
+        "port": 2,
+        "previous": "designated",
+        "role": "alternate"
+      },
+      {
+        "time_ms": 20,
+        "kind": "port_state",
+        "bridge": "s3",
+        "port": 2,
+        "previous": "listening",
+        "state": "blocking"
+      },
+      {
+        "time_ms": 12000,
+        "kind": "port_state",
+        "bridge": "s1",
+        "port": 1,
+        "previous": "listening",
+        "state": "learning"
+      },
+      {
+        "time_ms": 12000,
+        "kind": "port_state",
+        "bridge": "s1",
+        "port": 2,
+        "previous": "listening",
+        "state": "learning"
+      },
+      {
+        "time_ms": 12000,
+        "kind": "port_state",
+        "bridge": "s2",
+        "port": 1,
+        "previous": "listening",
+        "state": "learning"
+      },
+      {
+        "time_ms": 12000,
+        "kind": "port_state",
+        "bridge": "s2",
+        "port": 2,
+        "previous": "listening",
+        "state": "learning"
+      },
+      {
+        "time_ms": 12000,
+        "kind": "port_state",
+        "bridge": "s3",
+        "port": 1,
+        "previous": "listening",
+        "state": "learning"
+      },
+      {
+        "time_ms": 24000,
+        "kind": "port_state",
+        "bridge": "s1",
+        "port": 1,
+        "previous": "learning",
+        "state": "forwarding"
+      },
+      {
+        "time_ms": 24000,
+        "kind": "port_state",
+        "bridge": "s1",
+        "port": 2,
+        "previous": "learning",
+        "state": "forwarding"
+      },
+      {
+        "time_ms": 24000,
+        "kind": "port_state",
+        "bridge": "s2",
+        "port": 1,
+        "previous": "learning",
+        "state": "forwarding"
+      },
+      {
+        "time_ms": 24000,
+        "kind": "port_state",
+        "bridge": "s2",
+        "port": 2,
+        "previous": "learning",
+        "state": "forwarding"
+      },
+      {
+        "time_ms": 24000,
+        "kind": "port_state",
+        "bridge": "s3",
+        "port": 1,
+        "previous": "learning",
+        "state": "forwarding"
+      }
+    ],
+    "before": null,
+    "bridges": {
+      "s1": {
+        "bridge_id": "32768/02:00:00:00:00:01",
+        "root_id": "32768/02:00:00:00:00:01",
+        "root_cost": 0,
+        "root_port": null
+      },
+      "s2": {
+        "bridge_id": "32768/02:00:00:00:00:02",
+        "root_id": "32768/02:00:00:00:00:01",
+        "root_cost": 19,
+        "root_port": 1
+      },
+      "s3": {
+        "bridge_id": "32768/02:00:00:00:00:03",
+        "root_id": "32768/02:00:00:00:00:01",
+        "root_cost": 19,
+        "root_port": 1
+      }
+    },
+    "ports": [
+      {
+        "bridge": "s1",
+        "port": 1,
+        "peer": "s2",
+        "peer_port": 1,
+        "role": "designated",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s1",
+        "port": 2,
+        "peer": "s3",
+        "peer_port": 1,
+        "role": "designated",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s2",
+        "port": 1,
+        "peer": "s1",
+        "peer_port": 1,
+        "role": "root",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s2",
+        "port": 2,
+        "peer": "s3",
+        "peer_port": 2,
+        "role": "designated",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s3",
+        "port": 1,
+        "peer": "s1",
+        "peer_port": 2,
+        "role": "root",
+        "state": "forwarding"
+      },
+      {
+        "bridge": "s3",
+        "port": 2,
+        "peer": "s2",
+        "peer_port": 2,
+        "role": "alternate",
+        "state": "blocking"
+      }
+    ],
+    "state_counts": {
+      "forwarding": 5,
+      "blocking": 1,
+      "disabled": 0,
+      "listening": 0,
+      "learning": 0
+    },
+    "forwarding_links": [
+      "s1-s2",
+      "s1-s3"
+    ],
+    "components": [
+      [
+        "s1",
+        "s2",
+        "s3"
+      ]
+    ],
+    "connected": true,
+    "loop_free": true
+  }
+]
