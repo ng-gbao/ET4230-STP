@@ -1,0 +1,43 @@
+name: Python STP CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Python ${{ matrix.python }}
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install pinned test dependencies
+        run: python -m pip install -r requirements-ci.txt
+      - name: Check Python syntax
+        run: python -m compileall -q stp tests ubuntu
+      - name: Run pytest
+        run: python -m pytest -ra --junitxml="$RUNNER_TEMP/stp-report/pytest.xml"
+      - name: Regenerate and verify experiment artifacts
+        run: |
+          out="$RUNNER_TEMP/stp-report/experiments"
+          python -m stp.experiments --config experiments/triangle.json --output "$out"
+          python -m json.tool "$out/summary.json" >/dev/null
+          python -m stp.plot --input "$out/summary.json" --output "$out/comparison.svg"
+          for artifact in summary.json summary.csv ports.csv comparison.svg; do
+            cmp "results/$artifact" "$out/$artifact"
+          done
+      - name: Upload test report and simulation artifacts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: stp-python-${{ matrix.python }}
+          path: ${{ runner.temp }}/stp-report

@@ -11,7 +11,9 @@ class BridgeID:
     mac: str
 
     def __post_init__(self):
-        if not 0 <= self.priority <= 61440 or self.priority % 4096:
+        if (type(self.priority) is not int
+                or not 0 <= self.priority <= 61440
+                or self.priority % 4096):
             raise ValueError("priority must be a multiple of 4096 from 0 to 61440")
         octets = self.mac.split(":")
         if len(octets) != 6 or any(
@@ -89,7 +91,7 @@ class Timers:
 
 class Simulation:
     def __init__(self, bridges, links, propagation=10, *, timers=Timers()):
-        if not isinstance(propagation, int) or not 0 < propagation < timers.hello:
+        if type(propagation) is not int or not 0 < propagation < timers.hello:
             raise ValueError("propagation must be an integer between 0 and the hello interval")
         self.propagation = propagation
         self.timers = timers
@@ -101,8 +103,9 @@ class Simulation:
 
         self.links = {}
         for name, a, a_port, b, b_port, cost in links:
-            if (name in self.links or a == b or not isinstance(cost, int) or cost <= 0
-                    or any(not isinstance(port, int) or not 1 <= port <= 4095
+            if (name in self.links or a == b or a not in self.bridges or b not in self.bridges
+                    or type(cost) is not int or cost <= 0
+                    or any(type(port) is not int or not 1 <= port <= 4095
                            for port in (a_port, b_port))
                     or a_port in self.bridges[a].ports or b_port in self.bridges[b].ports):
                 raise ValueError(f"invalid link: {name}")
@@ -127,12 +130,12 @@ class Simulation:
         self.changes.append({"time_ms": self.now, "kind": kind, **details})
 
     def schedule(self, when, callback, *args):
-        if not isinstance(when, int) or when < self.now:
+        if type(when) is not int or when < self.now:
             raise ValueError("event time must be an integer at or after the current time")
         heappush(self._events, (when, next(self._sequence), callback, args))
 
     def run(self, until):
-        if not isinstance(until, int) or until < self.now:
+        if type(until) is not int or until < self.now:
             raise ValueError("simulation end must be an integer at or after the current time")
         while self._events and self._events[0][0] <= until:
             self.now, _, callback, args = heappop(self._events)
@@ -261,28 +264,11 @@ class Simulation:
             for name, bridge in self.bridges.items()
             for port in bridge.ports.values()
         ]
-        graph = {name: set() for name in self.bridges}
-        forwarding_links = []
-        for link, ((a, left), (b, right)) in self.links.items():
-            if left.state == right.state == "forwarding":
-                graph[a].add(b)
-                graph[b].add(a)
-                forwarding_links.append(link)
-
-        seen = set()
-        components = []
-        for name in graph:
-            if name in seen:
-                continue
-            component = {name}
-            pending = [name]
-            while pending:
-                node = pending.pop()
-                for neighbor in graph[node] - component:
-                    component.add(neighbor)
-                    pending.append(neighbor)
-            seen.update(component)
-            components.append(sorted(component))
+        forwarding = {
+            link: (a, b) for link, ((a, left), (b, right)) in self.links.items()
+            if left.state == right.state == "forwarding"
+        }
+        components = connected_components(self.bridges, forwarding.values())
 
         return {
             "bridges": {
@@ -295,8 +281,31 @@ class Simulation:
                 state: sum(port["state"] == state for port in ports)
                 for state in ("forwarding", "blocking", "disabled", "listening", "learning")
             },
-            "forwarding_links": forwarding_links,
+            "forwarding_links": list(forwarding),
             "components": components,
             "connected": len(components) == 1,
-            "loop_free": len(forwarding_links) == len(graph) - len(components),
+            "loop_free": len(forwarding) == len(self.bridges) - len(components),
         }
+
+
+def connected_components(bridges, edges):
+    """Group bridge names by reachability in the supplied undirected graph."""
+    graph = {name: set() for name in bridges}
+    for a, b in edges:
+        graph[a].add(b)
+        graph[b].add(a)
+    seen = set()
+    components = []
+    for name in graph:
+        if name in seen:
+            continue
+        component = {name}
+        pending = [name]
+        while pending:
+            node = pending.pop()
+            for neighbor in graph[node] - component:
+                component.add(neighbor)
+                pending.append(neighbor)
+        seen.update(component)
+        components.append(sorted(component))
+    return components

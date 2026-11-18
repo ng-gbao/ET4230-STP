@@ -1,7 +1,7 @@
-experiment,phase,root_id,trigger_ms,observed_until_ms,baseline_convergence_ms,control_convergence_ms,port_state_convergence_ms,convergence_ms,forwarding,blocking,disabled,connected,loop_free
-normal,startup,32768/02:00:00:00:00:01,0,90000,,20,30000,30000,5,1,0,True,True
-priority_change,reconvergence,4096/02:00:00:00:00:03,90000,180000,30000,20,30000,30000,5,1,0,True,True
-link_failure,reconvergence,32768/02:00:00:00:00:01,90000,180000,30000,0,30000,30000,4,0,2,True,True
-blocked_link_failure,reconvergence,32768/02:00:00:00:00:01,90000,180000,30000,0,0,0,4,0,2,True,True
-higher_path_cost,startup,32768/02:00:00:00:00:01,0,90000,,20,30000,30000,5,1,0,True,True
-short_forward_delay,startup,32768/02:00:00:00:00:01,0,90000,,20,24000,24000,5,1,0,True,True
+experiment,phase,root_id,time_basis,trigger_ms,observed_until_ms,stability_window_ms,baseline_convergence_ms,control_convergence_ms,port_state_convergence_ms,convergence_ms,connectivity_restoration_ms,forwarding,blocking,disabled,connected,loop_free
+normal,startup,32768/02:00:00:00:00:01,simulated,0,90000,20000,,20,30000,30000,30000,5,1,0,True,True
+priority_change,reconvergence,4096/02:00:00:00:00:03,simulated,90000,180000,20000,30000,20,30000,30000,30000,5,1,0,True,True
+link_failure,reconvergence,32768/02:00:00:00:00:01,simulated,90000,180000,20000,30000,0,30000,30000,30000,4,0,2,True,True
+blocked_link_failure,reconvergence,32768/02:00:00:00:00:01,simulated,90000,180000,20000,30000,0,0,0,0,4,0,2,True,True
+higher_path_cost,startup,32768/02:00:00:00:00:01,simulated,0,90000,20000,,20,30000,30000,30000,5,1,0,True,True
+short_forward_delay,startup,32768/02:00:00:00:00:01,simulated,0,90000,20000,,20,24000,24000,24000,5,1,0,True,True
