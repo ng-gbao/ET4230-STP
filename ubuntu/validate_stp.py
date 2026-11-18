@@ -5,54 +5,102 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import sys
 import time
 
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED = {
-    "normal": ("s1", 32768, {"s1": 0, "s2": 19, "s3": 19}, [
-        "designated", "root", "designated", "root", "designated", "alternate",
-    ]),
-    "priority_change": ("s3", 4096, {"s1": 19, "s2": 19, "s3": 0}, [
-        "designated", "alternate", "root", "designated", "root", "designated",
-    ]),
-    "link_failure": ("s1", 32768, {"s1": 0, "s2": 19, "s3": 38}, [
-        "designated", "root", "disabled", "disabled", "designated", "root",
-    ]),
+    "normal": ("s1", 32768, {"s1": 0, "s2": 19, "s3": 19}, {
+        "s1": ("designated", "designated"), "s2": ("root", "designated"),
+        "s3": ("root", "alternate"),
+    }),
+    "priority_change": ("s3", 4096, {"s1": 19, "s2": 19, "s3": 0}, {
+        "s1": ("designated", "root"), "s2": ("alternate", "root"),
+        "s3": ("designated", "designated"),
+    }),
+    "link_failure": ("s1", 32768, {"s1": 0, "s2": 19, "s3": 38}, {
+        "s1": ("designated", "disabled"), "s2": ("root", "designated"),
+        "s3": ("disabled", "root"),
+    }),
 }
 
 
 def ovs(*args):
-    return subprocess.check_output(["ovs-vsctl", "--timeout=5", *args], text=True)
+    command = ["ovs-vsctl", "--timeout=5", *args]
+    try:
+        return subprocess.run(command, check=True, text=True, capture_output=True, timeout=7).stdout
+    except OSError as error:
+        raise RuntimeError(f"could not run ovs-vsctl: {error}") from error
+    except subprocess.CalledProcessError as error:
+        raise RuntimeError(f"ovs-vsctl returned {error.returncode}: {error.stderr.strip()}") from error
+    except subprocess.TimeoutExpired as error:
+        raise RuntimeError(f"ovs-vsctl exceeded its process timeout: {args}") from error
+
+
+def ovs_rows(table, *columns):
+    selection = ",".join(("name", *columns))
+    try:
+        payload = json.loads(ovs("--format=json", f"--columns={selection}", "list", table))
+        headings = payload["headings"]
+        if set(headings) != {"name", *columns} or len(headings) != len(columns) + 1:
+            raise ValueError(f"unexpected headings {headings}")
+        rows = (dict(zip(headings, values, strict=True)) for values in payload["data"])
+        return {row.pop("name"): row for row in rows}
+    except (ValueError, KeyError, TypeError) as error:
+        raise RuntimeError(f"invalid OVSDB {table} output: {error}") from error
 
 
 def ovs_status(table):
-    payload = json.loads(ovs("--format=json", "--columns=name,status", "list", table))
-    return {name: dict(status[1]) for name, status in payload["data"]}
+    statuses = {}
+    for name, row in ovs_rows(table, "status").items():
+        try:
+            tag, data = row["status"]
+            if tag != "map":
+                raise ValueError(f"expected OVSDB map, received {tag}")
+            statuses[name] = dict(data)
+        except (ValueError, TypeError) as error:
+            raise RuntimeError(f"invalid OVSDB status for {table} {name}: {error}") from error
+    return statuses
 
 
 def verify(case, config, ports, started):
     root, priority, costs, roles = EXPECTED[case]
-    root_mac = config["bridges"][root]["mac"].replace(":", "")
-    root_id = f"{priority:04x}.{root_mac}"
-    states = [
-        (role, {"alternate": "blocking", "disabled": "disabled"}.get(role, "forwarding"))
-        for role in roles
-    ]
+    bridge_ids = {}
+    for name, bridge in config["bridges"].items():
+        bridge_priority = priority if name == root else bridge["priority"]
+        mac = bridge["mac"].replace(":", "").lower()
+        bridge_ids[name] = f"{bridge_priority:04x}.{mac}"
+    root_id = bridge_ids[root]
+    expected = {}
+    for (bridge, number), interface in ports.items():
+        role = roles[bridge][number - 1]
+        state = {"alternate": "blocking", "disabled": "disabled"}.get(role, "forwarding")
+        expected[interface] = (role, state)
+    failed = {interface for interface, (_, state) in expected.items() if state == "disabled"}
     first_match = None
-    while time.monotonic() - started < 90:
+    bridge_status, observed, interface_status = {}, {}, {}
+    deadline = started + 90
+    while time.monotonic() < deadline:
         bridge_status = ovs_status("Bridge")
         port_status = ovs_status("Port")
-        observed = []
-        for port in ports:
+        if failed:
+            interface_status = ovs_rows("Interface", "admin_state", "link_state")
+        for port in expected:
             status = port_status.get(port, {})
             state = status.get("stp_state")
             role = "disabled" if state == "disabled" else status.get("stp_role")
-            observed.append((role, state))
+            observed[port] = (role, state)
 
         now = time.monotonic()
-        ready = observed == states and all(
-            bridge_status.get(name, {}).get("stp_designated_root") == root_id
+        if now >= deadline:
+            break
+        ready = observed == expected and all(
+            interface_status.get(port) == {"admin_state": "down", "link_state": "down"}
+            for port in failed
+        ) and all(
+            bridge_status.get(name, {}).get("stp_designated_root", "").lower() == root_id
+            and bridge_status[name].get("stp_bridge_id", "").lower() == bridge_ids[name]
             and bridge_status[name].get("stp_root_path_cost") == str(cost)
             for name, cost in costs.items()
         )
@@ -63,17 +111,23 @@ def verify(case, config, ports, started):
                 return {
                     "experiment": case,
                     "root_id": root_id,
+                    "time_basis": "wall_clock",
                     "sampled_convergence_seconds": round(first_match - started, 3),
                     "bridges": {name: bridge_status[name] for name in costs},
                     "ports": {
                         port: {"role": role, "state": state}
-                        for port, (role, state) in zip(ports, observed)
+                        for port, (role, state) in observed.items()
                     },
+                    "failed_interfaces": {port: interface_status[port] for port in sorted(failed)},
                 }
         else:
             first_match = None
         time.sleep(1)
-    raise RuntimeError(f"{case}: STP did not stabilize; bridges={bridge_status}, ports={observed}")
+    failed_status = {port: interface_status.get(port) for port in sorted(failed)}
+    raise RuntimeError(f"{case}: STP did not stabilize within 90 s. "
+                       f"Expected root={root_id}, costs={costs}, ports={expected}. "
+                       f"Observed bridges={bridge_status}, ports={observed}, "
+                       f"failed interfaces={failed_status}")
 
 
 def run(case, config):
@@ -82,32 +136,37 @@ def run(case, config):
 
     net = Mininet(controller=None, switch=OVSSwitch)
     try:
+        print(f"{case}: building Mininet topology and waiting for a stable baseline", file=sys.stderr)
+        host_interfaces = {}
         for i, name in enumerate(config["bridges"], 1):
             net.addSwitch(name, failMode="standalone", stp=True)
             net.addHost(f"h{i}", ip=f"10.0.0.{i}/24")
-            net.addLink(name, f"h{i}", port1=3)
-        ports = []
+            link = net.addLink(name, f"h{i}", port1=3)
+            host_interfaces[name] = link.intf1.name
+        ports = {}
         port_settings = []
         for _, left, left_port, right, right_port, cost in config["links"]:
             link = net.addLink(left, right, port1=left_port, port2=right_port)
-            for intf, number in ((link.intf1, left_port), (link.intf2, right_port)):
-                ports.append(intf.name)
+            for bridge, intf, number in ((left, link.intf1, left_port),
+                                         (right, link.intf2, right_port)):
+                ports[bridge, number] = intf.name
                 port_settings.extend(["--", "set", "Port", intf.name,
                                       f"other_config:stp-port-num={number}",
                                       f"other_config:stp-path-cost={cost}"])
-        net.start()
         settings = []
         for name, bridge in config["bridges"].items():
-            settings.extend(["--", "set", "Port", f"{name}-eth3", "other_config:stp-port-num=3",
+            settings.extend(["--", "set", "Port", host_interfaces[name], "other_config:stp-port-num=3",
                              "--", "set", "Bridge", name, "stp_enable=true", "rstp_enable=false",
                              f"other_config:stp-system-id={bridge['mac']}",
                              f"other_config:stp-priority={bridge['priority']}",
                              "other_config:stp-hello-time=2", "other_config:stp-max-age=20",
                              "other_config:stp-forward-delay=15"])
         started = time.monotonic()
+        net.start()
         ovs(*port_settings, *settings)
         result = verify("normal", config, ports, started)
         if case != "normal":
+            print(f"{case}: applying scenario change", file=sys.stderr)
             started = time.monotonic()
             if case == "priority_change":
                 ovs("set", "Bridge", "s3", "other_config:stp-priority=4096")
@@ -119,8 +178,8 @@ def run(case, config):
         deadline = time.monotonic() + 35
         while time.monotonic() < deadline:
             status = ovs_status("Port")
-            if all(status.get(f"{name}-eth3", {}).get("stp_state") == "forwarding"
-                   for name in config["bridges"]):
+            if all(status.get(name, {}).get("stp_state") == "forwarding"
+                   for name in host_interfaces.values()):
                 break
             time.sleep(1)
         else:
@@ -143,12 +202,15 @@ def main():
     if os.geteuid() != 0:
         parser.error("run as root on a dedicated VM with Mininet and OVS installed")
     config = json.loads((ROOT / "experiments" / "triangle.json").read_text())
-    existing = set(ovs("list-br").splitlines()) & set(config["bridges"])
-    if existing:
-        parser.error(f"existing bridges would conflict with the lab: {sorted(existing)}")
-    cases = EXPECTED if args.case == "all" else [args.case]
-    results = [run(case, config) for case in cases]
-    args.output.write_text(json.dumps(results, indent=2) + "\n")
+    try:
+        existing = set(ovs("list-br").splitlines()) & set(config["bridges"])
+        if existing:
+            parser.error(f"existing bridges would conflict with the lab: {sorted(existing)}")
+        cases = EXPECTED if args.case == "all" else [args.case]
+        results = [run(case, config) for case in cases]
+        args.output.write_text(json.dumps(results, indent=2) + "\n")
+    except (RuntimeError, ImportError, OSError) as error:
+        parser.exit(1, f"{error}\n")
 
 
 if __name__ == "__main__":

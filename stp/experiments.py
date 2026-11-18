@@ -3,10 +3,11 @@
 import argparse
 import csv
 from dataclasses import asdict
+from itertools import groupby
 import json
 from pathlib import Path
 
-from stp.simulator import Simulation, Timers
+from stp.simulator import Simulation, Timers, connected_components
 
 
 def stable(sim, snapshot):
@@ -14,6 +15,29 @@ def stable(sim, snapshot):
     return (snapshot["connected"] and snapshot["loop_free"]
             and not (counts["listening"] or counts["learning"])
             and sim.now - sim.last_change >= sim.timers.max_age)
+
+
+def connectivity_restoration(bridges, links, timeline, before, trigger):
+    """Measure the final uninterrupted connected interval at event timestamps."""
+    forwarding = {(port["bridge"], port["port"]) for port in before["ports"]
+                  if port["state"] == "forwarding"} if before else set()
+    connected = before["connected"] if before else len(bridges) == 1
+    since = trigger if connected else None
+    state_changes = (change for change in timeline if change["kind"] == "port_state")
+    for timestamp, changes in groupby(state_changes, key=lambda change: change["time_ms"]):
+        for change in changes:
+            port = (change["bridge"], change["port"])
+            if change["state"] == "forwarding":
+                forwarding.add(port)
+            else:
+                forwarding.discard(port)
+        edges = ((a, b) for _, a, ap, b, bp, _ in links
+                 if (a, ap) in forwarding and (b, bp) in forwarding)
+        if len(connected_components(bridges, edges)) != 1:
+            since = None
+        elif since is None:
+            since = timestamp
+    return None if since is None else since - trigger
 
 
 def run(config):
@@ -71,12 +95,16 @@ def run(config):
             "experiment": case["name"],
             "phase": "reconvergence" if before is not None else "startup",
             "root_id": root,
+            "time_basis": "simulated",
             "trigger_ms": trigger,
             "observed_until_ms": sim.now,
+            "stability_window_ms": timers.max_age,
             "baseline_convergence_ms": baseline_convergence_ms,
             "control_convergence_ms": control_ms,
             "port_state_convergence_ms": port_state_ms,
             "convergence_ms": max(control_ms, port_state_ms),
+            "connectivity_restoration_ms": connectivity_restoration(
+                sim.bridges, links, timeline, before, trigger),
             "timers_ms": asdict(timers),
             "propagation_ms": sim.propagation,
             "path_costs": {row[0]: row[-1] for row in links},
@@ -91,9 +119,11 @@ def export(results, output):
     output.mkdir(parents=True, exist_ok=True)
     (output / "summary.json").write_text(json.dumps(results, indent=2) + "\n", encoding="utf-8")
     with (output / "summary.csv").open("w", newline="", encoding="utf-8") as stream:
-        fields = ("experiment", "phase", "root_id", "trigger_ms", "observed_until_ms",
+        fields = ("experiment", "phase", "root_id", "time_basis", "trigger_ms",
+                  "observed_until_ms", "stability_window_ms",
                   "baseline_convergence_ms", "control_convergence_ms",
-                  "port_state_convergence_ms", "convergence_ms", "forwarding", "blocking",
+                  "port_state_convergence_ms", "convergence_ms", "connectivity_restoration_ms",
+                  "forwarding", "blocking",
                   "disabled", "connected", "loop_free")
         writer = csv.DictWriter(stream, fields, lineterminator="\n")
         writer.writeheader()
@@ -118,7 +148,9 @@ def main():
     export(results, args.output)
     for result in results:
         print(f"{result['experiment']}: {result['root_id']}, "
-              f"{result['convergence_ms']} ms, {result['state_counts']}")
+              f"convergence {result['convergence_ms']} ms simulated, "
+              f"connectivity {result['connectivity_restoration_ms']} ms simulated, "
+              f"{result['state_counts']}")
 
 
 if __name__ == "__main__":
