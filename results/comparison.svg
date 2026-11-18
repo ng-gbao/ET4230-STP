@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="592" viewBox="0 0 900 592" role="img" aria-label="STP experiment comparison">
+  <rect width="900" height="592" fill="#f5f8fa" />
+  <text x="20" y="32" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="22">STP experiment comparison</text>
+  <text x="195" y="62" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="15">Simulated convergence (s)</text>
+  <text x="550" y="62" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="15">Ports after convergence</text>
+  <text x="20" y="93" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">normal</text>
+  <rect x="195" y="80" width="220.0" height="16" fill="#356489" />
+  <text x="422.0" y="93" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">30.000</text>
+  <rect x="550" y="80" width="205.0" height="16" fill="#176456" />
+  <text x="762.0" y="93" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">5 forwarding</text>
+  <rect x="550" y="101" width="41.0" height="16" fill="#956019" />
+  <text x="598.0" y="114" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">1 blocking</text>
+  <rect x="550" y="122" width="0.0" height="16" fill="#606b79" />
+  <text x="557.0" y="135" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">0 disabled</text>
+  <text x="20" y="175" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">priority change</text>
+  <rect x="195" y="162" width="220.0" height="16" fill="#356489" />
+  <text x="422.0" y="175" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">30.000</text>
+  <rect x="550" y="162" width="205.0" height="16" fill="#176456" />
+  <text x="762.0" y="175" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">5 forwarding</text>
+  <rect x="550" y="183" width="41.0" height="16" fill="#956019" />
+  <text x="598.0" y="196" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">1 blocking</text>
+  <rect x="550" y="204" width="0.0" height="16" fill="#606b79" />
+  <text x="557.0" y="217" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">0 disabled</text>
+  <text x="20" y="257" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">link failure</text>
+  <rect x="195" y="244" width="220.0" height="16" fill="#356489" />
+  <text x="422.0" y="257" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">30.000</text>
+  <rect x="550" y="244" width="164.0" height="16" fill="#176456" />
+  <text x="721.0" y="257" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">4 forwarding</text>
+  <rect x="550" y="265" width="0.0" height="16" fill="#956019" />
+  <text x="557.0" y="278" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">0 blocking</text>
+  <rect x="550" y="286" width="82.0" height="16" fill="#606b79" />
+  <text x="639.0" y="299" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">2 disabled</text>
+  <text x="20" y="339" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">blocked link failure</text>
+  <rect x="195" y="326" width="0.0" height="16" fill="#356489" />
+  <text x="202.0" y="339" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">0.000</text>
+  <rect x="550" y="326" width="164.0" height="16" fill="#176456" />
+  <text x="721.0" y="339" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">4 forwarding</text>
+  <rect x="550" y="347" width="0.0" height="16" fill="#956019" />
+  <text x="557.0" y="360" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">0 blocking</text>
+  <rect x="550" y="368" width="82.0" height="16" fill="#606b79" />
+  <text x="639.0" y="381" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">2 disabled</text>
+  <text x="20" y="421" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">higher path cost</text>
+  <rect x="195" y="408" width="220.0" height="16" fill="#356489" />
+  <text x="422.0" y="421" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">30.000</text>
+  <rect x="550" y="408" width="205.0" height="16" fill="#176456" />
+  <text x="762.0" y="421" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">5 forwarding</text>
+  <rect x="550" y="429" width="41.0" height="16" fill="#956019" />
+  <text x="598.0" y="442" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">1 blocking</text>
+  <rect x="550" y="450" width="0.0" height="16" fill="#606b79" />
+  <text x="557.0" y="463" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">0 disabled</text>
+  <text x="20" y="503" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">short forward delay</text>
+  <rect x="195" y="490" width="176.0" height="16" fill="#356489" />
+  <text x="378.0" y="503" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">24.000</text>
+  <rect x="550" y="490" width="205.0" height="16" fill="#176456" />
+  <text x="762.0" y="503" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">5 forwarding</text>
+  <rect x="550" y="511" width="41.0" height="16" fill="#956019" />
+  <text x="598.0" y="524" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">1 blocking</text>
+  <rect x="550" y="532" width="0.0" height="16" fill="#606b79" />
+  <text x="557.0" y="545" fill="#152332" font-family="DejaVu Sans, sans-serif" font-size="13">0 disabled</text>
+</svg>
